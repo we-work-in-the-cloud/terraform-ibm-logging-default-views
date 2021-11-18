@@ -5,6 +5,9 @@ provider "logdna" {
 
 locals {
   simple_views = [
+    //
+    // COMPUTE
+    //
     {
       category = "Compute️"
       name     = "Code Engine"
@@ -40,6 +43,9 @@ locals {
       name     = "Satellite"
       query    = "host:satellite"
     },
+    //
+    // DATABASES
+    //
     {
       category = "Databases️"
       name     = "ICD"
@@ -50,6 +56,9 @@ locals {
       name     = "Cloudant"
       query    = "host:cloudantnosqldb"
     },
+    //
+    // VPC
+    //
     {
       category = "VPC"
       name     = "All"
@@ -57,9 +66,42 @@ locals {
     },
     {
       category = "VPC"
+      name     = "VPC"
+      query    = "action:\"is.vpc.\""
+    },
+    {
+      category = "VPC"
+      name     = "Block Storage"
+      query    = "action:\"is.volume.\""
+    },
+    {
+      category = "VPC"
+      name     = "VSI"
+      query    = "action:\"is.instance.\""
+    },
+    {
+      category = "VPC"
+      name     = "Image"
+      query    = "action:\"is.image.\""
+    },
+    {
+      category = "VPC"
+      name     = "Load Balancer"
+      query    = "host:is-load-balancer"
+    },
+    {
+      category = "VPC"
+      name     = "Flow Logs"
+      query    = "action:\"is.flow-log-collector.\""
+    },
+    {
+      category = "VPC"
       name     = "VPN"
       query    = "host:is.vpn"
     },
+    //
+    // Security
+    //
     {
       category = "Security"
       name     = "Security Advisor"
@@ -71,15 +113,54 @@ locals {
       query    = "host:cloudcerts"
     },
     {
-      category = "DevOps"
+      category = "Security"
+      name     = "Compliance"
+      query    = "host:compliance"
+    },
+    {
+      category = "Security"
+      name     = "Key Protect"
+      query    = "host:kms"
+    },
+    //
+    // Developer Tools
+    //
+    {
+      category = "Tools"
       name     = "Schematics"
       query    = "host:schematics"
+    },
+    {
+      category = "Tools"
+      name     = "Cloud Shell"
+      query    = "host:cloud-shell"
+    },
+    {
+      category = "Tools"
+      name     = "Continuous Delivery"
+      query    = "host:continuous-delivery"
+    },
+    //
+    // Observability
+    //
+    {
+      category = "Observability"
+      name     = "LogDNA"
+      query    = "host:logdna"
+    },
+    //
+    // Storage
+    //
+    {
+      category = "Storage"
+      name     = "COS"
+      query    = "host:cloud-object-storage"
     }
   ]
 }
 
 resource "logdna_view" "simple_view" {
-  for_each = { for view in local.simple_views : view.name => view }
+  for_each = { for view in local.simple_views : "${view.category}-${view.name}" => view }
   name     = "${each.value.category} ~ ${each.value.name}"
   query    = each.value.query
 }
