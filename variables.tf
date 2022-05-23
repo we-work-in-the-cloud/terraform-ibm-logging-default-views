@@ -10,7 +10,7 @@ variable "logging_api_url" {
 }
 
 variable "category_prefix" {
-  type = string
+  type        = string
   description = "Prefix to add to generated categories"
-  default = "IBM Cloud / "
+  default     = "IBM Cloud / "
 }
