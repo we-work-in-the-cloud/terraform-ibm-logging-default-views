@@ -14,7 +14,7 @@ locals {
       query    = "host:\"Code Engine\""
     },
     {
-      category = "Compute"
+      category = "Compute️"
       name     = "Functions"
       query    = "host:functions"
     },
@@ -29,7 +29,7 @@ locals {
       query    = "host:containers-kubernetes"
     },
     {
-      category = "Compute"
+      category = "Compute️"
       name     = "Worker Nodes"
       query    = "tag:k8s"
     },
@@ -52,7 +52,7 @@ locals {
       query    = "host:ibm-cloud-databases-prod"
     },
     {
-      category = "Databases"
+      category = "Databases️"
       name     = "Cloudant"
       query    = "host:cloudantnosqldb"
     },
@@ -157,10 +157,23 @@ locals {
       query    = "host:cloud-object-storage"
     }
   ]
+
+  // capture all category names
+  categories = distinct(flatten([
+    for view in local.simple_views : view.category
+  ]))
+}
+
+resource "logdna_category" "category" {
+  for_each = { for category in local.categories : "${category}" => category }
+
+  type = "views"
+  name = "${var.category_prefix}${each.value}"
 }
 
 resource "logdna_view" "simple_view" {
-  for_each = { for view in local.simple_views : "${view.category}-${view.name}" => view }
-  name     = "${each.value.category} ~ ${each.value.name}"
-  query    = each.value.query
+  for_each   = { for view in local.simple_views : "${view.category}-${view.name}" => view }
+  categories = [logdna_category.category[each.value.category].name]
+  name       = each.value.name
+  query      = each.value.query
 }

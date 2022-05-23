@@ -8,3 +8,9 @@ variable "logging_api_url" {
   description = "API endpoint to use"
   default     = "https://api.us-south.logging.cloud.ibm.com"
 }
+
+variable "category_prefix" {
+  type = string
+  description = "Prefix to add to generated categories"
+  default = "IBM Cloud / "
+}
