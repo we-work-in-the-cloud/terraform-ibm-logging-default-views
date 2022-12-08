@@ -122,6 +122,11 @@ locals {
       name     = "Key Protect"
       query    = "host:kms"
     },
+    {
+      category = "Security"
+      name     = "Context Based Restrictions"
+      query    = "action:context-based-restrictions"
+    },
     //
     // Developer Tools
     //
