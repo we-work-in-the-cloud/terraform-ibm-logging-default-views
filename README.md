@@ -7,13 +7,13 @@ This modules creates default views for common services in an existing instance o
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13 |
-| <a name="requirement_logdna"></a> [logdna](#requirement\_logdna) | >= 1.8.0 |
+| <a name="requirement_logdna"></a> [logdna](#requirement\_logdna) | >= 1.14.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_logdna"></a> [logdna](#provider\_logdna) | >= 1.8.0 |
+| <a name="provider_logdna"></a> [logdna](#provider\_logdna) | >= 1.14.0 |
 
 ## Modules
 
