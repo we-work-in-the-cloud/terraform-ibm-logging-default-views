@@ -20,11 +20,6 @@ locals {
     },
     {
       category = "Compute️"
-      name     = "Cloud Foundry",
-      query    = "host:cloudfoundry"
-    },
-    {
-      category = "Compute️"
       name     = "Containers"
       query    = "host:containers-kubernetes"
     },
@@ -109,8 +104,8 @@ locals {
     },
     {
       category = "Security"
-      name     = "Certificate Manager"
-      query    = "host:cloudcerts"
+      name     = "Secrets Manager"
+      query    = "host:secrets-manager"
     },
     {
       category = "Security"
@@ -144,6 +139,11 @@ locals {
       category = "Tools"
       name     = "Continuous Delivery"
       query    = "host:continuous-delivery"
+    },
+    {
+      category = "Tools"
+      name     = "Event Notifications"
+      query    = "host:event-notifications"
     },
     //
     // Observability
